@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Basics</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <p>First Paragraph</p>
+        <span>First Span</span>
+        <p>Second Paragraph</p>
+        <p>Third Paragraph</p>
+        <span>Second Span</span>
+        <p>This is about <span id="inside-span">Selections</span></p>
+    </div>
+    <script>
+        d3.select("div").style("background", "pink");
+        d3.selectAll("p").style("color", "blue"); // selects all occurences
+        d3.select("p").style("color", "yellow"); // selects the first occurence
+        d3.select("#inside-span").style("color", "green");
+    </script>
+    
+</body>
+</html>
