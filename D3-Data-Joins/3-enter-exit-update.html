@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Data to Elements</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<style>
+    div 
+    {
+        margin-bottom: 20px;
+    }
+    p
+    {
+        background-color: lightgray;
+    }
+    .updated-p
+    {
+        background-color: lightblue;
+    }
+    #same-number 
+    {
+        border: 5px solid pink;
+    }
+
+    #more-elements
+    {
+        border: 5px solid indigo;
+    }
+
+    #more-elements-keep
+    {
+        border: 5px solid orange;
+    }
+
+    #more-data-same-style
+    {
+        border: 5px solid deeppink;
+    }
+
+    #more-data-different-style
+    {
+        border: 5px solid purple;
+    }
+</style>
+<body>
+    <div id="same-number">
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+    </div>
+
+    <div id="more-elements-keep">
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+    </div>
+
+    <div id="more-elements">
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+    </div>
+
+    <div id="more-data-same-style">
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+    </div>
+
+    <div id="more-data-different-style">
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+    </div>
+
+
+    <script>
+        var myData = ["Element 1", "Element 2", "Element 3", "Element 4"];
+
+        // binding to same number of elements
+        d3.selectAll("#same-number p")
+            .data(myData)
+            .classed("updated-p", true)
+            .text((d) => d);
+
+        // binding to more elements than data, keeping extra elements
+        d3.selectAll("#more-elements-keep p")
+            .data(myData)
+            .join(
+                function(enter){ return enter;},
+                function(update) {return update;},
+                function(exit) {return exit}
+            )
+            .classed("updated-p", true)
+            .text((d) => d);
+
+        // binding to more elements than data, removing extra elements
+        d3.selectAll("#more-elements p")
+            .data(myData)
+            .join(
+                function(enter){ return enter;},
+                function(update) {return update;},
+                function(exit) {return exit.remove()}
+            )
+            .classed("updated-p", true)
+            .text((d) => d);
+
+        // binding to more data than elements, affecting only new elements
+        d3.select("#more-data-different-style")
+            .selectAll("p")
+            .data(myData)
+            .join(
+                function(enter){ 
+                    return enter
+                    .append("p")
+                    .classed("updated-p", true)
+                    .text((d) => d);
+                    },
+                function(update) {return update;},
+                function(exit) {return exit.remove()}
+            );
+
+
+        // binding to more data than elements, affecting all elements
+        d3.select("#more-data-same-style")
+            .selectAll("p")
+            .data(myData)
+            .join(
+                function(enter){ 
+                    return enter
+                    .append("p");
+                    },
+                function(update) {return update;},
+                function(exit) {return exit.remove()}
+            )
+            .classed("updated-p", true)
+            .text((d) => d);
+        
+    </script>
+    
+</body>
+</html>
