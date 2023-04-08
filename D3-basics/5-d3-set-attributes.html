@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Attributes and Properties</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <button onclick="update()">Add Class</button><br>
+    <input type="checkbox"><br>
+    <div></div><br>
+    <span></span><br>
+    <svg width="600" height="600" >
+        <circle cx="50" cy="50" r="40" />
+        <circle cx="150" cy="50" r="40" />
+        <circle cx="250" cy="50" r="40" />
+        <circle cx="350" cy="50" r="40" />    
+    </svg>
+    
+
+    <script>
+        function update()
+        {
+            d3.selectAll("circle")
+                .attr("r", ()=> 10 + Math.random() * 30)
+                .attr("cx", ()=> 50 + Math.random() * 500)
+                .attr("cy", ()=> 50 + Math.random() * 500);
+            
+            d3.select("input[type=checkbox]").property("checked", () => Math.random() > 0.5);
+            d3.select("span").text("Included text");
+            d3.select("div").html("<b>Included HTML code</b>")
+        }
+    </script>
+    
+</body>
+</html>
