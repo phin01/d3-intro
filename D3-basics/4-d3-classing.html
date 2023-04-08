@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Adding Classes</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .coloredCircle 
+        {
+            stroke: deeppink;
+            stroke-width: 5;
+            fill: indigo;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="addClass()">Add Class</button><button onclick="removeClass()">Remove Class</button><br><br>
+    <svg width="600" height="600" >
+        <circle cx="50" cy="50" r="40" />
+        <circle cx="150" cy="50" r="40" />
+        <circle cx="250" cy="50" r="40" />
+        <circle cx="350" cy="50" r="40" />    
+    </svg>
+    
+
+    <script>
+        function addClass()
+        {
+            d3.selectAll("circle").classed("coloredCircle", true);
+        }
+
+        function removeClass()
+        {
+            d3.selectAll("circle").classed("coloredCircle", isEven);
+        }
+
+        function isEven(d, i)
+        {
+            return i % 2==0;
+        }
+    </script>
+    
+</body>
+</html>
