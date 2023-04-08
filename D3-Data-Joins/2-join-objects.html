@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Data to Elements</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <svg width="600" height="600">
+        <circle></circle>
+        <circle></circle>
+        <circle></circle>
+        <circle></circle>
+        <circle></circle>
+    </svg>
+
+
+    <script>
+        var myData = [
+            {radius: 10, position: 20, color: "indigo"},
+            {radius: 20, position: 80, color: "red"}, 
+            {radius: 15, position: 120, color: "pink"}, 
+            {radius: 25, position: 250, color: "blue"}, 
+            {radius: 15, position: 320, color: "deeppink"}];
+
+
+        d3.selectAll("circle").data(myData)
+            .attr("r", (d, i) => d.radius)
+            .attr("cx", (d, i) => d.position)
+            .attr("cy", (d, i) => d.position)
+            .style("fill", (d, i) => d.color);
+        
+    </script>
+    
+</body>
+</html>

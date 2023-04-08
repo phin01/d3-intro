@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Data to Elements</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .colored 
+        {
+            background-color: indigo;
+            color: deeppink;
+        }
+    </style>
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+
+    <script>
+        var myData = [20, 25, 30, 35, 40];
+        d3.selectAll("p").data(myData)
+            .text((d, i) => d)
+            .style("font-size", (d, i) => d + "px")
+            .classed("colored", (d, i) => d > 30);
+        
+    </script>
+    
+</body>
+</html>
