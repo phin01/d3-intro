@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Attributes and Properties</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <button onclick="insertElements()">Insert Elements</button><br>
+    <div id="parent">
+        <p>First Paragraph</p>
+        <p>Second Paragraph</p>
+        <p>Third Paragraph</p>
+    </div>
+    
+
+    <script>
+        function insertElements()
+        {
+            d3.select("#parent").append("p").text("Appends as last element").style("font-weight", "bold");
+            d3.select("#parent").insert("p", "p:nth-child(2)").text("Insert Before 2nd child").style("font-weight", "bold");
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Attributes and Properties</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <button onclick="insertElements()">Insert Elements</button><br>
+   
+
+    <script>
+        function insertElements()
+        {
+            var svg = d3.select("body").append("svg").attr("width", 400).attr("height", 400).style("background", "pink");
+            svg.append("rect").attr("width", "200").attr("height", "50").style("fill", "indigo");
+            svg.append("g").attr("transform", "translate(200,200)")
+                .append("circle").attr("r", "30").style("fill", "deeppink");
+        }
+    </script>
+    
+</body>
+</html>
