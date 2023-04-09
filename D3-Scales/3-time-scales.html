@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head> 
+<body>
+ 
+    <script>
+        //var dummyData = [1800, 4200, 230, -350, 19, 3700, 279, 89, 171];
+        //var dummyData = [18, 42, 23, 35, 19, 37, 27, 19, 17];
+        var dummyData = [
+                        {"date": "2022-01-01", "value": 18},
+                        {"date": "2022-05-01", "value": 42},
+                        {"date": "2022-09-01", "value": 23},
+                        {"date": "2022-03-01", "value": 35},
+                        {"date": "2023-01-01", "value": 19},
+                        {"date": "2022-02-01", "value": 37},
+                        {"date": "2023-02-01", "value": 27},
+                        {"date": "2023-12-01", "value": 19},
+                        {"date": "2023-07-01", "value": 17}];
+
+        var h = 600;
+        var w = 800;
+        var threshold = 250;
+
+        // height scaling
+        var myScale = d3.scaleLinear()
+                        .domain([0, d3.max(dummyData, (d) => d.value) *1.2])
+                        .range([0, h]);
+
+        // color scaling
+        var colorScale = d3.scaleLinear()
+                        .domain([ d3.min(dummyData, (d) => d.value), d3.max(dummyData, (d) => d.value)])
+                        .range(["indigo", "deeppink"]);
+
+        // time scaling for the x axis
+        var startDate = d3.min(dummyData, (d) => new Date(d.date));
+        var endDate = d3.max(dummyData, (d) => new Date(d.date));
+        var timeScale = d3.scaleTime()
+                        .domain([startDate, endDate])
+                        .range([0, w-100]);
+        //dummyData.forEach( (x) => alert(timeScale(new Date(x.date))));
+        
+        var axis = h-50;
+        var barWidth = 50;
+        var space = 10;
+        var leftMargin = 30;
+
+        // create canvas
+        var svg = d3.select("body")
+                    .append("svg")
+                    .attr("height", h)
+                    .attr("width", w)
+                    .style("background", "lightgray");
+
+        // create fake bars
+        var bars = svg.selectAll("rect")
+                        .data(dummyData)
+                        .join(
+                            function(enter) { return enter.append("rect");},
+                            function(update) { return update;}
+                        )
+                        //.attr("x", (d, i) => i*(space + barWidth) + leftMargin)
+                        .attr("x", (d, i) => timeScale(new Date(d.date)) + leftMargin)
+                        .attr("y", (d) => axis - myScale(d.value))
+                        .attr("height", (d) => myScale(d.value))
+                        .attr("width", barWidth/3)
+                        .style("fill", (d) => colorScale(d.value));
+    </script>
+</body>
+</html>
