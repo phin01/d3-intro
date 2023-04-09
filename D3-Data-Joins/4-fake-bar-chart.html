@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head> 
+<body>
+ 
+    <script>
+        var dummyData = [180, 420, 230, 350, 190, 370, 279, 89, 171];
+        var h = 600;
+        var w = 800;
+        var threshold = 250;
+
+        var axis = h-50;
+        var barWidth = 50;
+        var space = 10;
+        var leftMargin = 30;
+
+        // create canvas
+        var svg = d3.select("body")
+                    .append("svg")
+                    .attr("height", h)
+                    .attr("width", w)
+                    .style("background", "lightgray");
+
+        // create fake bars
+        var bars = svg.selectAll("rect")
+                        .data(dummyData)
+                        .join(
+                            function(enter) { return enter.append("rect");},
+                            function(update) { return update;}
+                        )
+                        .attr("x", (d, i) => i*(space + barWidth) + leftMargin)
+                        .attr("y", (d) => axis - d)
+                        .attr("height", (d) => d)
+                        .attr("width", barWidth)
+                        .style("fill", (d) => d > threshold ? "black" : "indigo");
+    </script>
+</body>
+</html>
