@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head> 
+<body>
+ 
+    <script>
+        //var dummyData = [1800, 4200, 230, -350, 19, 3700, 279, 89, 171];
+        var dummyData = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+        var h = 600;
+        var w = 800;
+        var threshold = 250;
+
+        // height scaling
+        var myScale = d3.scaleLinear()
+                        .domain([0, Math.max(...dummyData) *1.2 ])
+                        .range([0, h]);
+
+        // color scaling
+        var colorScale = d3.scaleSequential()
+                        .domain([Math.min(...dummyData), Math.max(...dummyData)])
+                        //.interpolator(d3.interpolateRainbow);
+                        //.interpolator(d3.interpolateWarm);
+                        .interpolator(d3.interpolateRgbBasis(["red", "green", "yellow", "blue"]));
+
+        var axis = h-50;
+        var barWidth = 50;
+        var space = 10;
+        var leftMargin = 30;
+
+        // create canvas
+        var svg = d3.select("body")
+                    .append("svg")
+                    .attr("height", h)
+                    .attr("width", w)
+                    .style("background", "lightgray");
+
+        // create fake bars
+        var bars = svg.selectAll("rect")
+                        .data(dummyData)
+                        .join(
+                            function(enter) { return enter.append("rect");},
+                            function(update) { return update;}
+                        )
+                        .attr("x", (d, i) => i*(space + barWidth) + leftMargin)
+                        .attr("y", (d) => axis - myScale(d))
+                        .attr("height", (d) => myScale(d))
+                        .attr("width", barWidth)
+                        .style("fill", (d) => colorScale(d));
+    </script>
+</body>
+</html>
